@@ -56,11 +56,11 @@ func (k8s *K8sResourceClient) CollectServices() ([]*Service, error) {
 	if ilist, e := k8s.getClusterIngresses(); e != nil || ilist == nil {
 		return nil, e
 	} else {
-		var services []*Service
+		// var services []*Service
 
-		for _, ingress := range ilist.Items {
+		// for _, ingress := range ilist.Items {
 
-		}
+		// }
 
 	}
 }

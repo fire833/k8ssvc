@@ -14,3 +14,26 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+# Metadata
+VERSION 	= 	$(shell cat Version)
+COMMIT 		= 	$(shell git rev-parse HEAD)
+DATE		=	$(shell date)
+TOPLEVEL	=	$(shell git rev-parse --show-toplevel)
+
+REPO		=	ghcr.io/fire833/k8ssm
+
+# Tools lookup
+GO			=	$(shell which go)
+DOCKER		=	$(shell which docker)
+BUILDAH		=	$(shell which buildah)
+PODMAN		=	$(shell which podman)
+SWAGGER		=	$(shell which swagger)
+
+.PHONY: binary
+binary:
+
+
+.PHONY: swagger
+swagger:
+	${SWAGGER} generate spec -o api/swagger.json --scan-models

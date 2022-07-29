@@ -1,0 +1,27 @@
+{
+  "consumes": [
+    "application/json",
+    "application/yaml",
+    "application/xml"
+  ],
+  "produces": [
+    "application/json",
+    "application/yaml"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "This service finds exposed services on your Kubernetes cluster and\nprovides a simple catalog for listing all ingresses.",
+    "title": "Documentation for Kubernetes Service Catalog.",
+    "contact": {
+      "name": "Kendall Tauser",
+      "email": "kttpsy@gmail.com"
+    },
+    "license": {
+      "name": "GPL V2.0",
+      "url": "https://opensource.org/licenses/gpl-2.0.php"
+    },
+    "version": "0.0.1"
+  },
+  "basePath": "/",
+  "paths": {}
+}
