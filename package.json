@@ -1,0 +1,8 @@
+{
+  "name": "k8ssm",
+  "packageManager": "yarn@3.2.2",
+  "dependencies": {
+    "@blueprintjs/core": "^4.6.0",
+    "swagger-ui-react": "^4.13.0"
+  }
+}
