@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/fasthttp/router v1.4.11
+	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.12.0
 	github.com/valyala/fasthttp v1.38.0
 	k8s.io/api v0.24.3
@@ -27,6 +28,7 @@ require (
 	github.com/google/gnostic v0.5.7-v3refs // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.15.0 // indirect
