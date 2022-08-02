@@ -19,21 +19,36 @@
 package config
 
 import (
+	"os"
+
 	"github.com/spf13/viper"
 )
 
-type K8sSMConfig struct {
+type k8sSMConfig struct {
 	c *viper.Viper
 }
 
-func NewSMConfig() *K8sSMConfig {
-	return &K8sSMConfig{
+func newSMConfig() *k8sSMConfig {
+	return &k8sSMConfig{
 		c: viper.New(),
 	}
 }
 
-func (conf *K8sSMConfig) Initialize() error {
-	conf.c.AddConfigPath("/etc/")
+func (conf *k8sSMConfig) Initialize() error {
+	cnf := conf.c
 
-	return nil
+	cnf.AddConfigPath("/etc/k8ssm")
+	cnf.AddConfigPath(os.Getenv("CONFIG"))
+	cnf.AddConfigPath(".")
+
+	// Default fail closed and disable tracking non-whitelisted ingresses.
+	cnf.SetDefault(DefaultTrack, false)
+
+	// Server configuration defaults
+	cnf.SetDefault(ListenCert, "/etc/k8ssm/cert.crt")
+	cnf.SetDefault(ListenKey, "/etc/k8ssm/cert.key")
+	cnf.SetDefault(ListenPort, 443)
+	cnf.SetDefault(DoTLS, true)
+
+	return cnf.ReadInConfig()
 }

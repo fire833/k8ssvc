@@ -16,19 +16,8 @@
 *	51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-package config
+package client
 
-const (
-	IngressClassAllowed string = "ingressClassAllowed"
-	IngressClassBlocked string = "ingressClassBlocked"
-
-	// Toggle whether or not to default track an ingress that has no explicit bans
-	// or allows applied to it in the ingress annotations or in the sm configuration.
-	DefaultTrack string = "defaultTrack"
-
-	// Server configuration information.
-	ListenPort string = "listenPort"
-	DoTLS      string = "doTLS"
-	ListenCert string = "listenCert"
-	ListenKey  string = "listenKey"
+var (
+	K8sClient *k8sResourceClient = newClient()
 )

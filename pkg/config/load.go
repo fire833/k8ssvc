@@ -19,5 +19,5 @@
 package config
 
 var (
-	Config *K8sSMConfig = NewSMConfig()
+	C *k8sSMConfig = newSMConfig()
 )

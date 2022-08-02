@@ -20,40 +20,43 @@ package config
 
 import "time"
 
-func (conf *K8sSMConfig) RegisterDefault(key string, value interface{}) {
+func (conf *k8sSMConfig) RegisterDefault(key string, value interface{}) {
 	conf.c.SetDefault(key, value)
 }
 
-func (conf *K8sSMConfig) InConfig(key string) bool {
+func (conf *k8sSMConfig) InConfig(key string) bool {
 	return conf.c.InConfig(key)
 }
 
-func (conf *K8sSMConfig) IsSet(key string) bool {
+func (conf *k8sSMConfig) IsSet(key string) bool {
 	return conf.c.IsSet(key)
 }
 
 // Wrapper functions around the viper config container.
+func (conf *k8sSMConfig) GetStringSlice(key string) []string {
+	return conf.c.GetStringSlice(key)
+}
 
-func (conf *K8sSMConfig) GetString(key string) string {
+func (conf *k8sSMConfig) GetString(key string) string {
 	return conf.c.GetString(key)
 }
 
-func (conf *K8sSMConfig) GetBool(key string) bool {
+func (conf *k8sSMConfig) GetBool(key string) bool {
 	return conf.c.GetBool(key)
 }
 
-func (conf *K8sSMConfig) GetInt(key string) int {
+func (conf *k8sSMConfig) GetInt(key string) int {
 	return conf.c.GetInt(key)
 }
 
-func (conf *K8sSMConfig) GetUint(key string) uint {
+func (conf *k8sSMConfig) GetUint(key string) uint {
 	return conf.c.GetUint(key)
 }
 
-func (conf *K8sSMConfig) GetTime(key string) time.Time {
+func (conf *k8sSMConfig) GetTime(key string) time.Time {
 	return conf.c.GetTime(key)
 }
 
-func (conf *K8sSMConfig) WatchConfig() {
+func (conf *k8sSMConfig) WatchConfig() {
 	conf.c.WatchConfig()
 }

@@ -21,14 +21,17 @@ package client
 import (
 	"context"
 
+	"github.com/fire833/k8ssm/pkg/config"
 	v1 "k8s.io/api/networking/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 )
 
-type K8sResourceClient struct {
+type k8sResourceClient struct {
 	client *kubernetes.Clientset
+
+	ingressClassLists map[string]bool
 }
 
 type Service struct {
@@ -38,7 +41,35 @@ type Service struct {
 	Uptime      string `json:"uptime" yaml:"uptime"`
 }
 
-func (k8s *K8sResourceClient) initializeK8sClient() (*kubernetes.Clientset, error) {
+func newClient() *k8sResourceClient {
+	return &k8sResourceClient{
+		client:            nil,
+		ingressClassLists: map[string]bool{},
+	}
+}
+
+func (k8s *k8sResourceClient) Initialize() error {
+	if client, e := k8s.initializeK8sClient(); e != nil {
+		return e
+	} else {
+		k8s.client = client
+	}
+
+	// Load allowed ingress classes
+	for _, allowed := range config.C.GetStringSlice(config.IngressClassAllowed) {
+		k8s.ingressClassLists[allowed] = true
+	}
+
+	// Load disallowed ingress classes
+	// If an allowed class is overwritten with a deny, then that is by design.
+	for _, disallowed := range config.C.GetStringSlice(config.IngressClassBlocked) {
+		k8s.ingressClassLists[disallowed] = false
+	}
+
+	return nil
+}
+
+func (k8s *k8sResourceClient) initializeK8sClient() (*kubernetes.Clientset, error) {
 	if config, e := rest.InClusterConfig(); e == nil {
 		return kubernetes.NewForConfig(config)
 	} else {
@@ -46,13 +77,13 @@ func (k8s *K8sResourceClient) initializeK8sClient() (*kubernetes.Clientset, erro
 	}
 }
 
-func (k8s *K8sResourceClient) getClusterIngresses() (*v1.IngressList, error) {
+func (k8s *k8sResourceClient) getClusterIngresses() (*v1.IngressList, error) {
 	return k8s.client.NetworkingV1().Ingresses("").List(context.Background(), metav1.ListOptions{
 		Limit: 256,
 	})
 }
 
-func (k8s *K8sResourceClient) CollectServices() ([]*Service, error) {
+func (k8s *k8sResourceClient) CollectServices() ([]*Service, error) {
 	if ilist, e := k8s.getClusterIngresses(); e != nil || ilist == nil {
 		return nil, e
 	} else {
@@ -61,6 +92,6 @@ func (k8s *K8sResourceClient) CollectServices() ([]*Service, error) {
 		// for _, ingress := range ilist.Items {
 
 		// }
-
+		return nil, nil
 	}
 }
