@@ -1,8 +1,10 @@
 {
   "name": "k8ssm",
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@3.2.4",
   "dependencies": {
-    "@blueprintjs/core": "^4.6.0",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.10",
     "swagger-ui-react": "^4.13.0"
   }
 }
